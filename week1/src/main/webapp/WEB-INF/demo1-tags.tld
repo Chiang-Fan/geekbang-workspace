@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
+    <description><![CDATA["Demo1 tag libs"]]></description>
+    <display-name>"Demo1 Tags"</display-name>
+    <tlib-version>2.2</tlib-version>
+    <short-name>ds</short-name>
+    <uri>/demo1-tags</uri>
+
+    <tag>
+        <name>common-response-headers</name>
+        <tag-class>org.geektime.week1.tag.CommonResponseHeadersTag</tag-class>
+        <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>cacheControl</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>pragma</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>expires</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Long</type>
+        </attribute>
+    </tag>
+
+</taglib>
+
+ 
