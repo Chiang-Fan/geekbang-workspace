@@ -13,3 +13,6 @@
 定义该类的标签声明。标签的前缀为 `ds` ,有三个字段可填充。
 3. 在 `src/main/webapp/pages/index.jsp` 中显式使用了自定义的标签：
    `<ds:common-response-headers cacheControl="no-cache" pragma="no-cache" expires="-1"/>`
+   
+4. 通过页面访问返回的 response-header 可以确认 tag 已生效
+   ![img.png](img.png)

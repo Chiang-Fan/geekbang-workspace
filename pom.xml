@@ -53,7 +53,7 @@
         <hibernate.version>5.4.29.Final</hibernate.version>
         <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
         <glassfish-el.version>3.0.1-b08</glassfish-el.version>
-        <jackson.version>2.9.5</jackson.version>
+        <jackson.version>2.11.2</jackson.version>
         <activemq.version>5.9.1</activemq.version>
         <tomcat.version>8.5.64</tomcat.version>
         <lettuce.version>6.1.0.RELEASE</lettuce.version>
@@ -66,7 +66,7 @@
         <mysql.jdbc.version>8.0.21</mysql.jdbc.version>
 
         <!-- Spring 依赖版本 -->
-        <spring-boot.version>2.4.5</spring-boot.version>
+        <spring-boot.version>2.0.5.RELEASE</spring-boot.version>
 
         <!-- Testing 版本 -->
         <junit.version>4.13</junit.version>
@@ -374,6 +374,36 @@
                 <artifactId>tomcat-jdbc</artifactId>
                 <version>${tomcat.version}</version>
             </dependency>
+
+            <!--<dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-el</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-websocket</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-annotations-api</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-jasper</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>-->
 
             <!-- Redis Java Client - Lettuce -->
             <dependency>
