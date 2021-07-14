@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>week1</module>
+        <module>my-configuration</module>
     </modules>
 
     <properties>
@@ -64,9 +65,10 @@
         <netty.version>4.1.65.Final</netty.version>
         <swagger.version>2.9.2</swagger.version>
         <mysql.jdbc.version>8.0.21</mysql.jdbc.version>
+        <archaius.version>0.6.0</archaius.version>
 
         <!-- Spring 依赖版本 -->
-        <spring-boot.version>2.0.5.RELEASE</spring-boot.version>
+        <spring-boot.version>2.4.5</spring-boot.version>
 
         <!-- Testing 版本 -->
         <junit.version>4.13</junit.version>
@@ -472,6 +474,13 @@
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+            <!-- Netflix -->
+            <dependency>
+                <groupId>com.netflix.archaius</groupId>
+                <artifactId>archaius-core</artifactId>
+                <version>${archaius.version}</version>
             </dependency>
 
         </dependencies>
