@@ -14,14 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.geektimes.commons.sql;
+package org.geektimes.interceptor.cglib;
+
+import org.geektimes.interceptor.microprofile.faulttolerance.EchoService;
+import org.junit.Test;
+
+import static org.geektimes.interceptor.AnnotatedInterceptor.loadInterceptors;
 
 /**
- * JDBC Utilities class
+ * {@link InterceptorEnhancer} Test
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @since 1.0.0
  */
-public interface JdbcUtils {
+public class InterceptorEnhancerTest {
 
+    @Test
+    public void test() {
+        InterceptorEnhancer enhancer = new InterceptorEnhancer();
+        EchoService echoService = new EchoService();
+        Object proxy = enhancer.enhance(echoService, loadInterceptors());
+        EchoService echoServiceProxy = (EchoService) proxy;
+        echoServiceProxy.echo("Hello,World");
+    }
 }

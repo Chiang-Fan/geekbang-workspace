@@ -14,14 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.geektimes.commons.sql;
+package org.geektimes.interceptor.dynamic;
+
+import org.geektimes.interceptor.cglib.InterceptorEnhancer;
+import org.junit.Test;
+
+import static org.geektimes.interceptor.AnnotatedInterceptor.loadInterceptors;
 
 /**
- * JDBC Utilities class
+ * {@link InterceptorEnhancer} Test
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @since 1.0.0
  */
-public interface JdbcUtils {
+public class Week4Test {
 
+    @Test
+    public void test() throws InstantiationException, IllegalAccessException {
+        InterceptorDynamicEnhancer enhancer = new InterceptorDynamicEnhancer();
+        Object proxy = enhancer.enhance(EchoService.class, loadInterceptors());
+        IEchoService echoServiceProxy = (IEchoService) proxy;
+        echoServiceProxy.echo(new Object());
+//        String echo = echoServiceProxy.echo(1111111111L);
+//        System.out.println(echo);
+    }
 }

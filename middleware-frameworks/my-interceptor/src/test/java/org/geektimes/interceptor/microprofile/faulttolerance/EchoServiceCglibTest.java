@@ -14,14 +14,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.geektimes.commons.sql;
+package org.geektimes.interceptor.microprofile.faulttolerance;
+
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
+import org.junit.Test;
+
+import java.lang.reflect.Method;
 
 /**
- * JDBC Utilities class
+ * {@link EchoService} CGLIB Test
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @since 1.0.0
  */
-public interface JdbcUtils {
+public class EchoServiceCglibTest {
 
+    @Test
+    public void test() {
+        Enhancer enhancer = new Enhancer();
+        enhancer.setSuperclass(EchoService.class);
+        enhancer.setCallback(new MethodInterceptor() {
+
+            // @Bulkhead
+
+            @Override
+            public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
+                return proxy.invokeSuper(obj, args);
+            }
+        });
+
+        EchoService echoService = (EchoService) enhancer.create();
+
+        echoService.echo("Hello,World");
+    }
 }

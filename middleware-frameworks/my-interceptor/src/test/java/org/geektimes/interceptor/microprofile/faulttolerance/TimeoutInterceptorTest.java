@@ -14,14 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.geektimes.commons.sql;
+package org.geektimes.interceptor.microprofile.faulttolerance;
 
 /**
- * JDBC Utilities class
+ * {@link TimeoutInterceptor} Test
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @since 1.0.0
  */
-public interface JdbcUtils {
-
+public class TimeoutInterceptorTest {
 }

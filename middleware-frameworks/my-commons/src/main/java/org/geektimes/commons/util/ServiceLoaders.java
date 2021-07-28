@@ -14,14 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.geektimes.commons.sql;
+package org.geektimes.commons.util;
+
+import java.util.ServiceLoader;
 
 /**
- * JDBC Utilities class
+ * {@link ServiceLoader} Utilities Class
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @since 1.0.0
  */
-public interface JdbcUtils {
+public abstract class ServiceLoaders {
 
+    public static <T> T loadSpi(Class<T> serviceClass) {
+        return ServiceLoader.load(serviceClass).iterator().next();
+    }
 }

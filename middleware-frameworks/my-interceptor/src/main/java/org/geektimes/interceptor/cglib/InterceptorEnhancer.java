@@ -14,14 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.geektimes.commons.sql;
+package org.geektimes.interceptor.cglib;
+
+
+import net.sf.cglib.proxy.Enhancer;
+
+import javax.interceptor.Interceptor;
 
 /**
- * JDBC Utilities class
+ * {@link Interceptor @Interceptor} enhancer by CGLIB
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @since 1.0.0
  */
-public interface JdbcUtils {
+public class InterceptorEnhancer {
+
+    public Object enhance(Object target, Object... interceptors) {
+        Enhancer enhancer = new Enhancer();
+        enhancer.setSuperclass(target.getClass());
+        enhancer.setCallback(new MethodInterceptorAdapter(target, interceptors));
+        return enhancer.create();
+    }
 
 }

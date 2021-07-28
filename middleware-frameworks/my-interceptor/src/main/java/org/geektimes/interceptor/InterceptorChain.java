@@ -14,14 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.geektimes.commons.sql;
+package org.geektimes.interceptor;
+
+import javax.interceptor.Interceptor;
 
 /**
- * JDBC Utilities class
+ * {@link Interceptor @Interceptor} chain
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @since 1.0.0
  */
-public interface JdbcUtils {
-
+public class InterceptorChain {
 }

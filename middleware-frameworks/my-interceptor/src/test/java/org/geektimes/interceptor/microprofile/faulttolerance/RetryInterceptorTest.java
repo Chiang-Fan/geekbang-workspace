@@ -14,14 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.geektimes.commons.sql;
+package org.geektimes.interceptor.microprofile.faulttolerance;
+
+import org.geektimes.interceptor.ReflectiveMethodInvocationContext;
+import org.junit.Test;
+
+import java.lang.reflect.Method;
 
 /**
- * JDBC Utilities class
+ * {@link RetryInterceptor} Test
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @since 1.0.0
  */
-public interface JdbcUtils {
+public class RetryInterceptorTest {
+
+    private RetryInterceptor interceptor = new RetryInterceptor();
+
+    @Test
+    public void test() throws Throwable {
+        EchoService echoService = new EchoService();
+        Method method = EchoService.class.getMethod("echo", Long.class);
+        ReflectiveMethodInvocationContext context = new ReflectiveMethodInvocationContext
+                (echoService, method, new Long(1L));
+        interceptor.execute(context);
+    }
 
 }

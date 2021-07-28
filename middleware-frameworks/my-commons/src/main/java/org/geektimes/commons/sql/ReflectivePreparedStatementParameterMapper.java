@@ -16,13 +16,10 @@
  */
 package org.geektimes.commons.sql;
 
-import org.apache.commons.lang.reflect.MethodUtils;
 import org.geektimes.commons.function.ThrowableAction;
-import org.geektimes.commons.lang.Prioritized;
 
 import java.io.InputStream;
 import java.io.Reader;
-import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.*;

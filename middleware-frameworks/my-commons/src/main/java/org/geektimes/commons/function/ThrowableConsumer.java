@@ -17,7 +17,6 @@
 package org.geektimes.commons.function;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 import static org.geektimes.commons.util.ExceptionUtils.wrapThrowable;
 
