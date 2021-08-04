@@ -29,8 +29,8 @@ public class InvocationHandlerAdapter implements InvocationHandler {
         return context.proceed();
     }
 
-    public Object getProxy() {
-        return Proxy.newProxyInstance(target.getClassLoader(),
+    public <T> T getProxy() {
+        return (T) Proxy.newProxyInstance(target.getClassLoader(),
                 target.getInterfaces(), this);
     }
 }

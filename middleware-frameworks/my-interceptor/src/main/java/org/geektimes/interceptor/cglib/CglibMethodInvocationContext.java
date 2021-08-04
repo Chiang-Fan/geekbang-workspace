@@ -16,34 +16,34 @@
  */
 package org.geektimes.interceptor.cglib;
 
-import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
-import org.geektimes.interceptor.ChainableInvocationContext;
+import org.geektimes.interceptor.ReflectiveMethodInvocationContext;
 
 import javax.interceptor.InvocationContext;
 import java.lang.reflect.Method;
 
 /**
- * {@link MethodInterceptor} -> @Interceptor chain
+ * {@link InvocationContext} on method using CGLIB
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @since 1.0.0
  */
-class MethodInterceptorAdapter implements MethodInterceptor {
 
-    private final Object target;
+class CglibMethodInvocationContext extends ReflectiveMethodInvocationContext {
 
-    private final Object[] interceptors;
+    private final MethodProxy proxy;
 
-    public MethodInterceptorAdapter(Object target, Object[] interceptors) {
-        this.target = target;
-        this.interceptors = interceptors;
+    public CglibMethodInvocationContext(Object target, Method method, MethodProxy proxy, Object... parameters) {
+        super(target, method, parameters);
+        this.proxy = proxy;
     }
 
     @Override
-    public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
-        InvocationContext delegateContext = new CglibMethodInvocationContext(obj, method, proxy, args);
-        ChainableInvocationContext context = new ChainableInvocationContext(delegateContext, interceptors);
-        return context.proceed();
+    public Object proceed() throws Exception {
+        try {
+            return proxy.invokeSuper(getTarget(), getParameters());
+        } catch (Throwable throwable) {
+            throw new Exception(throwable);
+        }
     }
 }

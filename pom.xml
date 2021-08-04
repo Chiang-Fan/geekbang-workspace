@@ -4,11 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>geekbang-workspace</artifactId>
+    <groupId>org.geekbang.projects</groupId>
+    <artifactId>stage-1</artifactId>
+    <name>Geekbang projects - stage 1</name>
+    <version>${revision}</version>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
     <modules>
+        <module>middleware-frameworks</module>
         <module>week1</module>
         <module>my-configuration</module>
     </modules>
@@ -19,7 +29,7 @@
         <project.build.sourceEncoding>${file.encoding}</project.build.sourceEncoding>
 
         <!-- Artifacts 依赖版本 -->
-        <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <javax.ws.rs-api.version>2.0.1</javax.ws.rs-api.version>
         <jstl.version>1.2</jstl.version>
         <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
@@ -54,7 +64,7 @@
         <hibernate.version>5.4.29.Final</hibernate.version>
         <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
         <glassfish-el.version>3.0.1-b08</glassfish-el.version>
-        <jackson.version>2.11.2</jackson.version>
+        <jackson.version>2.9.5</jackson.version>
         <activemq.version>5.9.1</activemq.version>
         <tomcat.version>8.5.64</tomcat.version>
         <lettuce.version>6.1.0.RELEASE</lettuce.version>
@@ -66,6 +76,8 @@
         <swagger.version>2.9.2</swagger.version>
         <mysql.jdbc.version>8.0.21</mysql.jdbc.version>
         <archaius.version>0.6.0</archaius.version>
+        <jersey.version>2.34</jersey.version>
+        <cglib.version>3.3.0</cglib.version>
 
         <!-- Spring 依赖版本 -->
         <spring-boot.version>2.4.5</spring-boot.version>
@@ -76,6 +88,7 @@
         <!-- Maven Plugins 版本 -->
         <maven.compiler.version>3.8.1</maven.compiler.version>
         <maven.source.version>3.2.1</maven.source.version>
+        <maven.javadoc.version>3.3.0</maven.javadoc.version>
         <maven.jar.version>3.2.0</maven.jar.version>
         <maven.war.version>3.3.1</maven.war.version>
         <maven.deploy.version>2.8.2</maven.deploy.version>
@@ -286,6 +299,13 @@
                 </exclusions>
             </dependency>
 
+            <!-- Netflix -->
+            <dependency>
+                <groupId>com.netflix.archaius</groupId>
+                <artifactId>archaius-core</artifactId>
+                <version>${archaius.version}</version>
+            </dependency>
+
             <!-- Guava -->
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -377,35 +397,11 @@
                 <version>${tomcat.version}</version>
             </dependency>
 
-            <!--<dependency>
-                <groupId>org.apache.tomcat.embed</groupId>
-                <artifactId>tomcat-embed-core</artifactId>
-                <version>${tomcat.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.tomcat.embed</groupId>
-                <artifactId>tomcat-embed-el</artifactId>
-                <version>${tomcat.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.tomcat.embed</groupId>
-                <artifactId>tomcat-embed-websocket</artifactId>
-                <version>${tomcat.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>org.apache.tomcat</groupId>
-                <artifactId>tomcat-annotations-api</artifactId>
+                <artifactId>tomcat-jasper</artifactId>
                 <version>${tomcat.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>org.apache.tomcat.embed</groupId>
-                <artifactId>tomcat-embed-jasper</artifactId>
-                <version>${tomcat.version}</version>
-            </dependency>-->
 
             <!-- Redis Java Client - Lettuce -->
             <dependency>
@@ -466,6 +462,32 @@
                 <version>${mysql.jdbc.version}</version>
             </dependency>
 
+            <!-- Jersey -->
+            <dependency>
+                <groupId>org.glassfish.jersey.core</groupId>
+                <artifactId>jersey-client</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.glassfish.jersey.core</groupId>
+                <artifactId>jersey-common</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.glassfish.jersey.ext.microprofile</groupId>
+                <artifactId>jersey-mp-rest-client</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+
+            <!-- CGLIB -->
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>${cglib.version}</version>
+            </dependency>
+
             <!-- Testing Dependencies -->
 
             <!-- JUnit -->
@@ -474,13 +496,6 @@
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
                 <scope>test</scope>
-            </dependency>
-
-            <!-- Netflix -->
-            <dependency>
-                <groupId>com.netflix.archaius</groupId>
-                <artifactId>archaius-core</artifactId>
-                <version>${archaius.version}</version>
             </dependency>
 
         </dependencies>
@@ -506,8 +521,8 @@
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>${maven.deploy.version}</version>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven.javadoc.version}</version>
                 </plugin>
 
                 <plugin>
@@ -530,6 +545,12 @@
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven.deploy.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${maven.release.version}</version>
                 </plugin>
@@ -538,7 +559,7 @@
         </pluginManagement>
 
         <plugins>
-           <!--<plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.version}</version>
@@ -552,7 +573,7 @@
                     <target>${maven.compiler.target}</target>
                     <encoding>${file.encoding}</encoding>
                 </configuration>
-            </plugin>-->
+            </plugin>
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -584,29 +605,6 @@
 
     <profiles>
         <profile>
-            <id>tomcat-7</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <!-- Tomcat Maven 插件用于构建可执行 war -->
-                        <!-- Tomcat 7.x 官方文档：
-                        http://tomcat.apache.org/tomcat-7.0-doc/index.html
-                        -->
-                        <plugin>
-                            <groupId>org.apache.tomcat.maven</groupId>
-                            <artifactId>tomcat7-maven-plugin</artifactId>
-                            <version>2.1</version>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-
-            </build>
-        </profile>
-
-        <profile>
             <id>tomcat-8</id>
             <build>
                 <pluginManagement>
@@ -632,6 +630,41 @@
                     </snapshots>
                 </pluginRepository>
             </pluginRepositories>
+        </profile>
+
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <source>8</source>
+                                    <detectJavaApiLink>false</detectJavaApiLink>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <configuration>
+                            <autoVersionSubmodules>true</autoVersionSubmodules>
+                            <useReleaseProfile>false</useReleaseProfile>
+                            <releaseProfiles>release</releaseProfiles>
+                            <goals>deploy</goals>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
@@ -670,6 +703,5 @@
             <url>https://repo.spring.io/libs-release</url>
         </pluginRepository>
     </pluginRepositories>
-
 
 </project>

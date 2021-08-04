@@ -16,34 +16,25 @@
  */
 package org.geektimes.interceptor.cglib;
 
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
-import org.geektimes.interceptor.ChainableInvocationContext;
 
-import javax.interceptor.InvocationContext;
-import java.lang.reflect.Method;
+import net.sf.cglib.proxy.Enhancer;
+import org.geektimes.interceptor.InterceptorEnhancer;
+
+import javax.interceptor.Interceptor;
 
 /**
- * {@link MethodInterceptor} -> @Interceptor chain
+ * {@link Interceptor @Interceptor} enhancer by CGLIB
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @since 1.0.0
  */
-class MethodInterceptorAdapter implements MethodInterceptor {
-
-    private final Object target;
-
-    private final Object[] interceptors;
-
-    public MethodInterceptorAdapter(Object target, Object[] interceptors) {
-        this.target = target;
-        this.interceptors = interceptors;
-    }
+public class CglibInterceptorEnhancer implements InterceptorEnhancer {
 
     @Override
-    public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
-        InvocationContext delegateContext = new CglibMethodInvocationContext(obj, method, proxy, args);
-        ChainableInvocationContext context = new ChainableInvocationContext(delegateContext, interceptors);
-        return context.proceed();
+    public <T> T enhance(T source, Class<? super T> type, Object... interceptors) {
+        Enhancer enhancer = new Enhancer();
+        enhancer.setSuperclass(type);
+        enhancer.setCallback(new MethodInterceptorAdapter(source, interceptors));
+        return (T) enhancer.create();
     }
 }

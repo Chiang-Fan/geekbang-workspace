@@ -1,5 +1,18 @@
 # 极客事件小马哥 P7 课程 作业工程
 
+## WEEK5 作业路径
+1. 新建 `org.geektimes.cache.annotation.interceptor.CacheRemoveInterceptor` 
+   继承 `org.geektimes.cache.annotation.interceptor.CacheOperationInterceptor` 抽象类。
+   
+2. 因为 `org.geektimes.cache.annotation.interceptor.CacheOperationInterceptor` 中实现了调用的模板。
+   所以主要实现 `org.geektimes.cache.annotation.interceptor.CacheRemoveInterceptor` 中的 `beforeExecute` 及 `afterExecute` 方法。
+   
+3. 在 `afterExecute` 方法中使用 cache 的方法，删除对应的缓存。
+
+4. 作业思路: 新建一个用于处理 `@CacheRemove` 的 `Interceptor`, 根据方法上的 `@CacheRemove` 注解。
+   获取一个对应的缓存对象 `Cache`，根据语义对 cache 中的内容做操作。完成 `Interceptor` 后，使用上周作业完成的 `enhancer` 
+   对 `org.geektimes.cache.week5.DataRepository` 做增强，使该接口中的所有方法都会经过 `Interceptor`。
+
 ## WEEK4 作业路径
 1. 新建 `org.geektimes.interceptor.dynamic.InvocationHandlerAdapter` 实现 JDK 动态代理 
    `java.lang.reflect.InvocationHandler` 接口。并实现其中的 `invoke()` 方法。

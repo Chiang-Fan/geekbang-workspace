@@ -8,7 +8,7 @@
         <groupId>org.geekbang.projects</groupId>
         <artifactId>stage-1</artifactId>
         <version>${revision}</version>
-        <relativePath>../../geekbang-lessons/projects/stage-1/pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>org.geekbang.projects</groupId>
@@ -30,6 +30,9 @@
         <module>my-distributed-lock</module>
         <module>my-rpc</module>
         <module>my-http-server</module>
+        <module>my-gateway</module>
+        <module>my-fault-tolerance</module>
+        <module>my-cdi</module>
     </modules>
 
     <properties>
