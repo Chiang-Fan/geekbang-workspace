@@ -14,17 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.geektimes.configuration.microprofile.config.source.servlet;
+package org.geektimes.configuration.microprofile.config.annotation;
 
-import org.eclipse.microprofile.config.spi.ConfigSource;
-
-import javax.servlet.ServletRequest;
+import java.lang.annotation.*;
 
 /**
- * {@link ServletRequest} {@link ConfigSource}
+ * Annotation providing a convenient and declarative mechanism for adding a
+ * {@link org.eclipse.microprofile.config.spi.ConfigSource}
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
+ * @see org.eclipse.microprofile.config.spi.ConfigSource
  * @since 1.0.0
  */
-public class ServletRequestConfigSource {
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface ConfigSources {
+    ConfigSource[] value();
 }

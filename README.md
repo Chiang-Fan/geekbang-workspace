@@ -1,5 +1,48 @@
 # 极客事件小马哥 P7 课程 作业工程
 
+## WEEK6 作业路径
+1. 新建 `org.geektimes.configuration.microprofile.config.annotation.ConfigSources` 注解，注解成员为 ConfigSource 的数组对象。
+
+2. 修改 `org.geektimes.configuration.microprofile.config.annotation.ConfigSource` 注解，增加 `@Repeatable(ConfigSources.class)` 的标注。
+
+3. 新建 `sun.net.www.protocol.filepath.Handler` 已实现 filePath 协议的解析。其中通过协议 resource 定义的 file 文件路径，返回对应的 `fileInputStream`.
+
+4. 新建 `org.geektimes.configuration.microprofile.config.annotation.YamlConfigSourceFactory` 实现 `ConfigSourceFactory` 接口用于完成 yaml 类型格式的配置解析。
+
+5. 新建 `org.geektimes.configuration.microprofile.config.annotation.Week6Test` 用于作业的测试。
+   * 在类名上标注一个不指定 ConfigSourceFactory 的注解：`@ConfigSource(ordinal = 200, resource = "filepath:D:\\chiangfan\\Workspace\\Learn\\小马哥 P7\\Project\\config\\test.properties")`
+   * 标注在一个指定 `YamlConfigSourceFactory` 的注解：`@ConfigSource(ordinal = 200, resource = "filepath:D:\\chiangfan\\Workspace\\Learn\\小马哥 P7\\Project\\config\\test.yaml",
+     factory = YamlConfigSourceFactory.class)`
+     
+   * 修改测试类中的 initConfigSourceFactory 方法，解析 ConfigSource 类型注解的数组。
+   * 执行 test 方法。可以看到，properties 的文件以及 yaml 格式的文件都正常解析并加载到了 configSource 中:
+   ![img_2.png](img_2.png)
+     
+6. @Repeatable 的实现原理: 
+   * 在 `org.geektimes.configuration.microprofile.config.annotation.Week6Test.initConfigSourceFactory` 中通过 `getClass().getAnnotationsByType(ConfigSource.class)` 获取到了所有的 `ConfigSource`.
+   * 从 `getAnnotationsByType` 入手。跟踪到 `sun.reflect.annotation.AnnotationSupport.getDirectlyAndIndirectlyPresent`
+   * 在 `sun.reflect.annotation.AnnotationSupport.getIndirectlyPresent` 中看到对 Repeatable 做了处理
+      ```java
+        private static <A extends Annotation> A[] getIndirectlyPresent(Map<Class<? extends Annotation>, Annotation> var0, Class<A> var1) {
+        Repeatable var2 = (Repeatable)var1.getDeclaredAnnotation(Repeatable.class);
+        if (var2 == null) {
+            return null;
+        } else {
+            Class var3 = var2.value();
+            Annotation var4 = (Annotation)var0.get(var3);
+            if (var4 == null) {
+                return null;
+            } else {
+                Annotation[] var5 = getValueArray(var4);
+                checkTypes(var5, var4, var1);
+                return var5;
+            }
+        }
+      }
+      ```
+     
+   * 在 `Annotation[] var5 = getValueArray(var4);` 方法中，通过 Repeatable 的 value，也就是 ConfigSources 注解。通过反射，执行 ConfigSources 的 value() 方法，并返回。
+   
 ## WEEK5 作业路径
 1. 新建 `org.geektimes.cache.annotation.interceptor.CacheRemoveInterceptor` 
    继承 `org.geektimes.cache.annotation.interceptor.CacheOperationInterceptor` 抽象类。
