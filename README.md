@@ -1,5 +1,25 @@
 # 极客事件小马哥 P7 课程 作业工程
 
+## WEEK7 作业路径
+1. `@Validated` 的工作原理。查看 `@Validated` 注解的声明，其注释显示，实现类为 `org.springframework.validation.beanvalidation.SpringValidatorAdapter`;
+   * 查看 `org.springframework.validation.beanvalidation.SpringValidatorAdapter.validate(java.lang.Object, org.springframework.validation.Errors)` 方法，
+   该方法的调用方之一有 `org.springframework.validation.DataBinder.validate(java.lang.Object...)`, 而这个 validate 方法是由
+     `org.springframework.web.method.annotation.ModelAttributeMethodProcessor.validateIfApplicable` 调用。`validateIfApplicable` 的 `determineValidationHints` 方法中解析了
+     `@Validated` 注解及 `startsWith("Valid")` 名称的注解。获取注解的 value 字段，然后交由 DataBinder 处理。
+      
+   * 在 `org.springframework.validation.beanvalidation.SpringValidatorAdapter.processConstraintViolations` 方法中，根据入参的 `violation` 分别对参数进行校验。
+      这里的 `violation` 可选实现有 `org.hibernate.validator.internal.engine.ConstraintViolationImpl` 也就是又交给 hibernate 或者 JSR 303 处理。
+     
+   * 方法标注上的注解类似，`org.springframework.validation.beanvalidation.MethodValidationInterceptor` 获取方法上标注的 `@Validated` 注解后。
+     调用 `javax.validation.executable.ExecutableValidator.validateParameters` JSR 的接口完成参数校验。
+   * 总结一下，Spring `@Validated` 注解通过切面或者 `Interceptor` 的方式，获取到需要校验的内容后，还是交由 JSR303 或者 hibernate 的实现来进行处理。
+   
+2. `@Validated` 注解与 Spring Validator 以及 JSR-303 Bean Validation @javax.validation.Valid 之间的关系
+   * `@Validated` 仅作为一个注解，其内部逻辑的实现需要依靠 `Validator`.
+   * Spring Validator 与 JSR-303 Bean Validation 从本质上来说没有实际的关系。两者其实都是 Validator。
+      * 不过在 Spring Validator 的实现中，一般将 JSR-303 Bean Validation 作为 delegate 。如：`org.springframework.validation.beanvalidation.SpringValidatorAdapter.targetValidator`。用于实现 JSR-303 中的规范。
+   
+
 ## WEEK6 作业路径
 1. 新建 `org.geektimes.configuration.microprofile.config.annotation.ConfigSources` 注解，注解成员为 ConfigSource 的数组对象。
 
