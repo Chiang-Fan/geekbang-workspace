@@ -498,6 +498,13 @@
                 <scope>test</scope>
             </dependency>
 
+            <!-- Java DB -->
+            <dependency>
+                <groupId>org.apache.derby</groupId>
+                <artifactId>derby</artifactId>
+                <version>${derby.version}</version>
+            </dependency>
+
         </dependencies>
 
     </dependencyManagement>

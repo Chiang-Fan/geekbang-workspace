@@ -1,5 +1,16 @@
 # 极客事件小马哥 P7 课程 作业工程
 
+## WEEK 8 作业路径
+1. 新建 `org.geektimes.reactive.reactor.WEEK8` 测试类，用于测试 Mono API
+2. `org.geektimes.reactive.reactor.WEEK8.demoMonoPublisher` 方法中
+   * 使用 `Mono.fromDirect` 获取 Mono 对象，并调用 subscribe 方法监听 SimplePublisher 的内容更新。
+   * 使用 `Flux.from` 获取 Flux 对象，并调用 flux.subscribe 方法监听 SimplePublisher 的内容更新。
+   
+3. 测试结果：
+   测试发现，在 BusinessSubscriber 中的 onNext 方法，分别被调用了两次，说明 `Mono.fromDirect`
+   及 `Flux.from` 均可以让 BusinessSubscriber 实时获取到 publisher 中发送的数据。
+   ![img_5.png](img_5.png)
+
 ## WEEK7 作业路径
 1. `@Validated` 的工作原理。查看 `@Validated` 注解的声明，其注释显示，实现类为 `org.springframework.validation.beanvalidation.SpringValidatorAdapter`;
    * 查看 `org.springframework.validation.beanvalidation.SpringValidatorAdapter.validate(java.lang.Object, org.springframework.validation.Errors)` 方法，
@@ -16,7 +27,6 @@
    
 2. `@Validated` 注解与 Spring Validator 以及 JSR-303 Bean Validation @javax.validation.Valid 之间的关系
    * `@Validated` 仅作为一个注解，其内部逻辑的实现需要依靠 `Validator`.
-   * Spring Validator 与 JSR-303 Bean Validation 从本质上来说没有实际的关系。两者其实都是 Validator。
       * 不过在 Spring Validator 的实现中，一般将 JSR-303 Bean Validation 作为 delegate 。如：`org.springframework.validation.beanvalidation.SpringValidatorAdapter.targetValidator`。用于实现 JSR-303 中的规范。
    
 

@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 
 import static java.util.ServiceLoader.load;
 import static org.geektimes.commons.function.Streams.stream;
-import static org.geektimes.commons.reflect.util.ClassUtils.getClassLoader;
+import static org.geektimes.commons.lang.util.ClassLoaderUtils.getClassLoader;
 
 /**
  * {@link ServiceLoader} Utilities Class
@@ -40,7 +40,11 @@ public abstract class ServiceLoaders {
     }
 
     public static <T> T loadSpi(Class<T> serviceClass) {
-        return load(serviceClass, getClassLoader(serviceClass)).iterator().next();
+        return loadSpi(serviceClass, getClassLoader(serviceClass));
+    }
+
+    public static <T> T loadSpi(Class<T> serviceClass, ClassLoader classLoader) {
+        return load(serviceClass, classLoader).iterator().next();
     }
 
     public static <T> T[] loadAsArray(Class<T> serviceClass) {

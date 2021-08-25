@@ -18,7 +18,7 @@ package org.geektimes.commons.function;
 
 import java.util.function.Consumer;
 
-import static org.geektimes.commons.util.ExceptionUtils.wrapThrowable;
+import static org.geektimes.commons.lang.util.ExceptionUtils.wrapThrowable;
 
 /**
  * A function interface for {@link Consumer} with {@link Throwable}
