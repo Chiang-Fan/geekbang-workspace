@@ -71,7 +71,7 @@
         <jedis.version>3.5.2</jedis.version>
         <mybatis.version>3.5.7</mybatis.version>
         <mybatis-spring.version>2.0.6</mybatis-spring.version>
-        <curator.version>5.1.0</curator.version>
+        <curator.version>4.0.1</curator.version>
         <netty.version>4.1.65.Final</netty.version>
         <swagger.version>2.9.2</swagger.version>
         <mysql.jdbc.version>8.0.21</mysql.jdbc.version>

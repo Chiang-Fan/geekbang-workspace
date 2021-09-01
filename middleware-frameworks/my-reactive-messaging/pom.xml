@@ -40,6 +40,12 @@
             <artifactId>activemq-all</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- Testing -->
 
         <!-- JUnit -->
@@ -53,6 +59,14 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webflux</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-framework</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-recipes</artifactId>
         </dependency>
 
     </dependencies>

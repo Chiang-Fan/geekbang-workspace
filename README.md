@@ -1,5 +1,20 @@
 # 极客事件小马哥 P7 课程 作业工程
 
+## WEEK 9 作业路径
+1. 新建 `org.geektimes.event.distributed.zookeeper.ZookeeperEventPublisher` 生产者，用于生产消息。
+   * 在构造方法中声明 zk 的地址，以及需要监听的 topic 名称
+   * 初始化时，调用 `initBuildInSub` 用于初始化内建的消费者。该消费者监听到消息后，将消息写到 zk 中。
+   * 在 `org.geektimes.event.distributed.zookeeper.ZookeeperEventPublisher.main` 中调用 publish 方法发送消息
+   
+2. 新建 `org.geektimes.event.distributed.zookeeper.ZookeeperEventSubscriber` 消费者，用于消费消息
+   * 在构造方法中声明 zk 的地址，以及需要消费的 topic 名称
+   * 调用 `initBuildInPub` 用于初始化内建的生产者。该生产者监听 zk 节点的数据变化，当 zk 节点有数据变化时
+     通过 `simplePublisher.publish` 发送本地消息。
+   * 在 `org.geektimes.event.distributed.zookeeper.ZookeeperEventSubscriber.main` 中调用 `onSubscriber` 来对消息进行监听
+   
+3. 效果：
+   ![img_6.png](img_6.png)
+
 ## WEEK 8 作业路径
 1. 新建 `org.geektimes.reactive.reactor.WEEK8` 测试类，用于测试 Mono API
 2. `org.geektimes.reactive.reactor.WEEK8.demoMonoPublisher` 方法中
