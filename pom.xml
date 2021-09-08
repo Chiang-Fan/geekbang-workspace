@@ -21,6 +21,11 @@
         <module>middleware-frameworks</module>
         <module>week1</module>
         <module>my-configuration</module>
+        <module>week10</module>
+        <module>dubbo-consumer-demo</module>
+        <module>week10/dubbo-consumer-demo</module>
+        <module>week10/dubbo-provider-demo</module>
+        <module>week10/dubbo-crucer-berak</module>
     </modules>
 
     <properties>
@@ -78,6 +83,7 @@
         <archaius.version>0.6.0</archaius.version>
         <jersey.version>2.34</jersey.version>
         <cglib.version>3.3.0</cglib.version>
+        <dubbo.version>2.7.10</dubbo.version>
 
         <!-- Spring 依赖版本 -->
         <spring-boot.version>2.4.5</spring-boot.version>

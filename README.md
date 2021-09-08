@@ -1,5 +1,22 @@
 # 极客事件小马哥 P7 课程 作业工程
 
+## WEEK 10 作业路径
+1. 搭建正常的 dubbo demo 应用
+   * 新建 dubbo-provider-demo 用于构建服务提供者
+   * 新增 `org.geektimes.project.week10.provider.service.IEchoService` 实现服务提供方的接口
+   * 启动服务提供者 `org.geektimes.project.week10.provider.Application`
+   * 新建 dubbo-consumer-demo 用于构建服务消费者
+   * 新增 `org.geektimes.project.week10.provider.service.IEchoService` 用于调用服务提供方的服务
+   * 启动服务消费者 `org.geektimes.project.week10.consumer.Application`
+   
+2. 增加 dubbo filter - `org.geektimes.project.week10.bulkhead.BulkheadR4jFilter`
+   * 该过滤器中，主要获取经过的方法，判断方法上是否存在 `@org.geektimes.project.week10.bulkhead.Bulkhead` 注解。
+   * 如果不存在对应注解，则认为无需开启限流，直接执行 invoker.invoke 跳过该过滤器
+   * 如果存在对应注解，则根据注解的字段。生成对应的 R4j Bulkhead 对象。
+   * 调用 invoker.invoke 前注入 R4j Bulkhead 对象实现限流的功能
+   
+3. 新建 `src/main/resources/META-INF/dubbo/org.apache.dubbo.rpc.filter` 文件，用于在 SPI 声明自定义的 BulkheadR4jFilter 
+
 ## WEEK 9 作业路径
 1. 新建 `org.geektimes.event.distributed.zookeeper.ZookeeperEventPublisher` 生产者，用于生产消息。
    * 在构造方法中声明 zk 的地址，以及需要监听的 topic 名称
