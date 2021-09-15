@@ -1,5 +1,18 @@
 # 极客事件小马哥 P7 课程 作业工程
 
+## WEEK 11 作业路径
+1. 新建 `notweb-spring-boot-starter` 项目
+* 新建 `org.geektime.spring.boot.starter.configure. `
+配置类，并在其中声明一个 `ApplicationRunner` 的 bean
+* 在改项目中新建一个 `META-INF/spring.factories`, 将上一步新建的 `NotWebApplicationRunnerConfiguration` 作为 spring-boot autoconfiguration 的实现
+2. 新建 `spring-boot-starter-demo` 用于测试
+* pom 中依赖 notweb-spring-boot-starter 
+* 编写 `org.geektime.spring.boot.starter.demo.Application`
+* 执行 `org.geektime.spring.boot.starter.demo.Application.main` 方法，并以非 web 方式启动。
+3. 执行结果：按预期输出了 NotWebApplicationRunnerConfiguration 中的内容。
+![img_7.png](img_7.png)
+   
+
 ## WEEK 10 作业路径
 1. 搭建正常的 dubbo demo 应用
    * 新建 dubbo-provider-demo 用于构建服务提供者

@@ -25,7 +25,8 @@
         <module>dubbo-consumer-demo</module>
         <module>week10/dubbo-consumer-demo</module>
         <module>week10/dubbo-provider-demo</module>
-        <module>week10/dubbo-crucer-berak</module>
+
+        <module>week11</module>
     </modules>
 
     <properties>
@@ -69,7 +70,7 @@
         <hibernate.version>5.4.29.Final</hibernate.version>
         <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
         <glassfish-el.version>3.0.1-b08</glassfish-el.version>
-        <jackson.version>2.9.5</jackson.version>
+        <jackson.version>2.12.2</jackson.version>
         <activemq.version>5.9.1</activemq.version>
         <tomcat.version>8.5.64</tomcat.version>
         <lettuce.version>6.1.0.RELEASE</lettuce.version>
