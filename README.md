@@ -1,5 +1,36 @@
 # 极客事件小马哥 P7 课程 作业工程
 
+## WEEK 12 作业路径
+说明 Spring Cloud Alibaba Nacos 服务注册和发现的逻辑
+1. DiscoveryClient 实现
+   * 在 `spring-cloud-starter-alibaba-nacos-discovery` 的 META-INF/spring.factories 中声明了一些 nacos 相关的自动装配
+   ```properties
+   org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+   com.alibaba.cloud.nacos.discovery.NacosDiscoveryAutoConfiguration,\
+   com.alibaba.cloud.nacos.endpoint.NacosDiscoveryEndpointAutoConfiguration,\
+   com.alibaba.cloud.nacos.registry.NacosServiceRegistryAutoConfiguration,\
+   com.alibaba.cloud.nacos.discovery.NacosDiscoveryClientConfiguration
+   ```
+   * 其中 `NacosDiscoveryClientConfiguration` 中声明了 `DiscoveryClient nacosDiscoveryClient` bean;
+   * `NacosDiscoveryClient` 实现了 `DiscoveryClient` 并复写了 `getInstances` 及 `getServices` 方法。
+   * 以 `getServices` 为例，`getServices` 的实现其实直接调用了 `namingService().getServicesOfServer` 而 namingService 可以看做是 nacos 服务器调用的一些封装。
+   其内部通过 http 请求 nacosServer 暴露的 API 并将结果返回。
+   * 如此便实现了从 nacosServer 获取服务注册的信息。
+2. ServiceRegistration 实现
+   * 在 `spring-cloud-starter-alibaba-nacos-discovery` 的 META-INF/spring.factories 中有一个
+     `NacosServiceRegistryAutoConfiguration` 的自动装配 
+   * 在 `NacosServiceRegistryAutoConfiguration` 声明了 `NacosAutoServiceRegistration nacosAutoServiceRegistration`
+   * `NacosAutoServiceRegistration#register` 方法中，确认注册的开关及端口，调用 super.register();
+   * super.register() 会调用构造方法中传入的 serviceRegistry.register();
+   * 而在 NacosServiceRegistry#register 方法中，其实也是获取服务 id，group 然后通过 namingServer 调用 nacosServer 的 API 将服务注册到 nacos 中
+   
+3. 自动装配
+   * 在 `spring-cloud-starter-alibaba-nacos-discovery` 的 META-INF/spring.factories 中声明了一些 nacos 相关的自动装配
+   * 使用 `EnableDiscoveryClient` 注解时，会开启服务发现。
+   * 而 `NacosDiscoveryClientConfiguration` 及 `NacosServiceRegistryAutoConfiguration` 均具有条件装配注解 `ConditionalOnNacosDiscoveryEnabled`。
+   * `NacosDiscoveryClientConfiguration` 同时具备 `ConditionalOnDiscoveryEnabled` 条件注解。
+   * 通过`EnableDiscoveryClient` 控制加载 `NacosDiscoveryClientConfiguration` 及 `NacosServiceRegistryAutoConfiguration` 完成自动装配
+
 ## WEEK 11 作业路径
 1. 新建 `notweb-spring-boot-starter` 项目
 * 新建 `org.geektime.spring.boot.starter.configure. `
